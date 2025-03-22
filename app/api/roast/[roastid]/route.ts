@@ -1,17 +1,19 @@
-// app/api/roast/[roastid]/route.ts
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase-server'
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { roastid: string } }
-) {
-  const { roastid } = params
+export async function GET(request: NextRequest) {
+  const url = new URL(request.url)
+  const pathname = url.pathname
+  const roastId = pathname.split('/').pop()
+
+  if (!roastId) {
+    return NextResponse.json({ error: 'Missing roast ID' }, { status: 400 })
+  }
 
   const { data, error } = await supabase
     .from('roasts')
-    .select('*')
-    .eq('id', roastid)
+    .select('id, vin, roast, created_at')
+    .eq('id', roastId)
     .single()
 
   if (error || !data) {
@@ -20,6 +22,7 @@ export async function GET(
 
   return NextResponse.json({
     roast: data.roast,
+    vin: data.vin,
     created_at: data.created_at,
   })
 }
