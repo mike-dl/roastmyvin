@@ -1,15 +1,20 @@
 // app/api/roast/route.ts
 import { NextRequest, NextResponse } from 'next/server'
+import { OpenAI } from 'openai'
+import crypto from 'crypto'
+import { supabase } from '@/lib/supabase-server'
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+})
 
 export async function POST(request: NextRequest) {
   try {
     const { vin } = await request.json()
+    if (!vin) throw new Error('No VIN provided')
 
-    if (!vin) {
-      throw new Error('No VIN provided')
-    }
-    const roastText = await generateRoast(vin)
-    return NextResponse.json({ roast: roastText })
+    const { roast, roastId } = await generateRoast(vin)
+    return NextResponse.json({ roast, roastId })
   } catch (error) {
     console.error(error)
     return new NextResponse(
@@ -19,56 +24,72 @@ export async function POST(request: NextRequest) {
   }
 }
 
-async function generateRoast(vin: string): Promise<string> {
-  try {
-    const apiKey = process.env.API_KEY
-    const baseUrl = process.env.API_BASE_URL
-    const apiVersion = process.env.API_VERSION
-    const url = `${baseUrl}?vin=${encodeURIComponent(vin)}&apiVersion=${apiVersion}`
+async function generateRoast(vin: string): Promise<{ roast: string; roastId: string }> {
+  const apiKey = process.env.API_KEY
+  const baseUrl = process.env.API_BASE_URL
+  const apiVersion = process.env.API_VERSION
+  const url = `${baseUrl}?vin=${encodeURIComponent(vin)}&apiVersion=${apiVersion}`
 
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'x-api-key': apiKey,
-      },
-    })
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: { 'x-api-key': apiKey! },
+  })
 
-    if (!response.ok) {
-      throw new Error(`VIN API request failed: ${response.status}`)
-    }
-
-    const data = await response.json()
-    console.log('Full data:', JSON.stringify(data, null, 2))
-
-    if (data.status !== 'success') {
-      throw new Error(`VIN decode returned failure: ${JSON.stringify(data)}`)
-    }
-    const vinValue = data["VIN"] ?? "Unknown VIN"
-    const gvwr = data["GVWR"] ?? "Unknown GVWR"
-    const source = data["Source"] ?? "Unknown Source"
-    const status = data["status"] ?? "Unknown Status"
-    const cabType = data["Cab Type"] ?? "Unknown Cab Type"
-    const fuelType = data["Fuel Type"] ?? "Unknown Fuel Type"
-    const engineInfo = data["Engine Info"] ?? "Unknown Engine Info"
-    const brakeSystem = data["Brake System"] ?? "Unknown Brake System"
-    const engineModel = data["Engine Model"] ?? "Unknown Engine Model"
-    const vehicleInfo = data["Vehicle Info"] ?? "Unknown Vehicle Info"
-    const vehicleType = data["Vehicle Type"] ?? "Unknown Vehicle Type"
-    const vehicleModel = data["Vehicle Model"] ?? "Unknown Vehicle Model"
-    const driveLineType = data["Drive Line Type"] ?? "Unknown Drive Line Type"
-    const engineCapacity = data["Engine Capacity"] ?? "Unknown Engine Capacity"
-    const plantManufacturer = data["Plant Manufacturer"] ?? "Unknown Plant Manufacturer"
-    const truckManufacturer = data["Truck Manufacturer"] ?? "Unknown Truck Manufacturer"
-    const engineManufacturer = data["Engine Manufacturer"] ?? "Unknown Engine Manufacturer"
-    const vehicleManufacturerYear = data["Vehicle Manufacturer Year"] ?? "Unknown Vehicle Manufacturer Year"
-    const oemParts = data["oemParts"] ?? "No OEM parts"
-
-    const roastText = `Lol, a cute ${truckManufacturer}, do they even sell the ${vehicleModel} anymore?`
-
-
-    return roastText
-  } catch (error) {
-    console.error(error)
-    return `We tried to decode VIN ${vin}, but even Diesel Laptops gave up on it.`
+  if (!response.ok) {
+    throw new Error(`VIN API request failed: ${response.status}`)
   }
+
+  const data = await response.json()
+  if (data.status !== 'success') {
+    throw new Error(`VIN decode returned failure: ${JSON.stringify(data)}`)
+  }
+  const truckManufacturer = data['Truck Manufacturer'] ?? 'Unknown Make'
+  const vehicleModel = data['Vehicle Model'] ?? 'Unknown Model'
+  const engineModel = data['Engine Model'] ?? 'Unknown Engine'
+  const brakeSystem = data['Brake System'] ?? 'Unknown Brake System'
+
+  const prompt = `
+Given the following truck details, write a short roast for each major category. Format it **exactly like this**, including line breaks:
+
+🛻 <value> — <1-line roast>
+🚛 <value> — <1-line roast>
+🔧 <value> — <1-line roast>
+🛑 Brake System: <value> — <1-line roast>
+
+Truck Info:
+Make: ${truckManufacturer}
+Model: ${vehicleModel}
+Engine: ${engineModel}
+Brake System: ${brakeSystem}
+`.trim()
+
+
+  const chatResponse = await openai.chat.completions.create({
+    model: 'gpt-4',
+    messages: [
+      {
+        role: 'system',
+        content: 'You are a savage but clever roast comedian. Roast trucks based on their specs. Output must use line breaks and exactly match the emoji-labeled format — one roast per line.',
+        },
+      {
+        role: 'user',
+        content: prompt,
+      },
+    ],
+    temperature: 0.9,
+    max_tokens: 200,
+  })
+
+  const aiRoast = chatResponse.choices[0].message.content?.trim() ?? 'This truck roasted itself.'
+  const roastId = crypto.randomBytes(6).toString('hex')
+
+  const { error } = await supabase
+    .from('roasts')
+    .insert([{ id: roastId, roast: aiRoast }])
+
+  if (error) {
+    console.error('Supabase insert error:', error)
+  }
+
+  return { roast: aiRoast, roastId }
 }

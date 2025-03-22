@@ -55,8 +55,69 @@
   }
 }
 
+/* app/globals.css */
+
+/* app/globals.css */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: system-ui, sans-serif;
+  background-image: url('/brick.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: white;
+}
+
+
+/* app/globals.css */
+
+@keyframes neonFlicker {
+  0%   { opacity: 1; }
+  5%   { opacity: 0; }
+  10%  { opacity: 1; }
+  15%  { opacity: 0.6; }
+  20%  { opacity: 1; }
+  25%  { opacity: 0.2; }
+  30%  { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+.flicker {
+  animation: neonFlicker 2.5s infinite;
+}
+
+.flaming-roast-box {
+  border: 3px solid transparent;
+  padding: 1rem;
+  border-radius: 10px;
+  background-image:
+    linear-gradient(#000, #000),
+    linear-gradient(45deg, orange, red, darkred, red, orange);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  color: white;
+  font-weight: bold;
+  text-shadow: 0 0 8px #ff4500;
+  animation: firePulse 1.2s infinite alternate;
+  margin-bottom: 2rem;
+}
+
+@keyframes firePulse {
+  0% {
+    box-shadow:
+      0 0 8px 2px rgba(255, 69, 0, 0.6),
+      0 0 20px 5px rgba(255, 140, 0, 0.4);
+  }
+  100% {
+    box-shadow:
+      0 0 16px 4px rgba(255, 69, 0, 1),
+      0 0 30px 10px rgba(255, 0, 0, 0.6);
+  }
 }
