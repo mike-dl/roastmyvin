@@ -34,7 +34,7 @@ export default function RoastClient() {
       }}
     >
       {/* Flickering Roast Logo */}
-      <div style={{ position: 'relative', width: '100%', maxWidth: '400px', margin: '0 auto 2rem' }}>
+      <div style={{ position: 'relative', width: '100%', maxWidth: '800px', margin: '0 auto 2rem' }}>
         <img
           src="/roast-off.png"
           alt="Roast Off"
