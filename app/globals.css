@@ -65,14 +65,14 @@ html, body {
   height: 100%;
 }
 
-body {
+html, body {
   font-family: system-ui, sans-serif;
   background-image: url('/brick.jpg');
-  background-size: cover;
-  background-position: center;
   background-attachment: fixed;
-  background-repeat: no-repeat;
+  background-size: cover;
+  background-repeat: repeat;
   color: white;
+  min-height:100vh;
 }
 
 
@@ -120,4 +120,8 @@ body {
       0 0 16px 4px rgba(255, 69, 0, 1),
       0 0 30px 10px rgba(255, 0, 0, 0.6);
   }
+}
+
+.invert {
+  filter:invert(1);
 }
