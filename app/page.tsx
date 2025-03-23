@@ -19,7 +19,7 @@ export default function HomePage() {
   // 🔐 Password gate
   const [showGate, setShowGate] = useState(true)
   const [inputPassword, setInputPassword] = useState('')
-  const correctPassword = 'weekendroast'
+  const correctPassword = 'dlbbq'
 
   useEffect(() => {
     if (localStorage.getItem('access_granted') === 'true') {
