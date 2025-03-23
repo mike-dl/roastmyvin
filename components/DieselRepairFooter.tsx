@@ -22,7 +22,7 @@ export default function DieselRepairFooter() {
           </p>
           <div className="mt-6">
             <a
-              href="https://app-repair.diesellaptops.com/#/sign-up"
+              href="https://app-repair.diesellaptops.com/?utm_source=website&utm_medium=footer_link&utm_campaign=roastmyvin#/sign-up"
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-lg btn-neutral animated-glow"

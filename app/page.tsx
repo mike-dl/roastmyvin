@@ -119,14 +119,14 @@ export default function HomePage() {
             onChange={(e) => setVin(e.target.value)}
             placeholder="Enter your VIN"
             required
-            className="flex-1 min-w-[250px] p-3 bg-transparent text-white outline-none text-base"
+            className="flex-1 min-w-[250px] p-3 bg-transparent text-white outline-none text-3xl"
           />
           <button
             type="submit"
             disabled={loading}
-            className="bg-orange-600 text-white font-bold px-6 flex items-center gap-2"
+            className="bg-orange-600 text-white font-bold px-6 flex items-center gap-2 text-xl"
           >
-            🔥 {loading ? 'Roasting...' : 'Roast'}
+            🔥 {loading ? 'Roasting...' : 'Roast Me!'}
           </button>
         </form>
 
@@ -136,13 +136,8 @@ export default function HomePage() {
             <h2 className="mb-4 text-lg font-semibold">🔥 Latest Roast</h2>
             <div className="flaming-roast-box">
               <p className="whitespace-pre-line m-0">{recentRoasts[0].roast}</p>
-              <a
-                href={`/roast?roastid=${recentRoasts[0].id}`}
-                className="inline-block text-white mt-2 underline"
-              >
-                View Roast →
-              </a>
             </div>
+            <p className="text-sm">This site does not store VINs or collect any personal information.</p>
           </div>
         )}
       </main>
