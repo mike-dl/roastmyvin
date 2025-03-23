@@ -30,7 +30,8 @@ export default function DieselRepairFooter() {
               🔥 Sign Up Free Today →
             </a>
           </div>
-          <p className="text-xs mt-10">&copy; 2025 <a href="https://diesellaptops.com">Diesel Laptops</a>. Information is for entertainment purposes only.</p>
+          <p className="text-xs mt-10">&copy; 2025 <a href="https://diesellaptops.com">Diesel Laptops</a>. Information is for entertainment purposes only.
+          This site does not store VINs or collect any personal information.</p>
         </div>
       </footer>
     )

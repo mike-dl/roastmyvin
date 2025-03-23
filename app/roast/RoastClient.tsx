@@ -109,14 +109,14 @@ export default function RoastClient() {
                 </a>
 
                 <a
-                  href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}&title=Roast%20My%20VIN`}
+                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-[#0077b5] text-white rounded font-bold text-sm"
-                >
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-[#0077b5] text-white rounded font-bold text-sm">
                   <img src="/icons/linkedin.svg" alt="LinkedIn Logo" className="h-5" />
                   Share on LinkedIn
                 </a>
+
               </div>
             </div>
           </>
