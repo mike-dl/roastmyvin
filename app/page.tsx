@@ -65,7 +65,7 @@ export default function HomePage() {
       <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50">
         <div className="bg-white text-black p-8 rounded-lg shadow-lg max-w-sm w-full text-center space-y-4">
           <h2 className="text-2xl font-bold">Protected Page</h2>
-          <p className="text-sm">This page is locked for the weekend. Enter the password to continue.</p>
+          <p className="text-sm">This page is locked. Enter the password to continue.</p>
           <input
             type="password"
             className="input input-bordered w-full text-white"
