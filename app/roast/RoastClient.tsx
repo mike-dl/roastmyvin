@@ -45,7 +45,7 @@ export default function RoastClient() {
             href="/"
             className="inline-block text-[#ff5722] font-bold uppercase tracking-wide text-sm no-underline hover:text-[#ffa726] transition-all"
           >
-            ← Home
+            ← Roast Another!
           </Link>
         </div>
 

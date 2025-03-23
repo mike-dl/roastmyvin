@@ -125,3 +125,22 @@ html, body {
 .invert {
   filter:invert(1);
 }
+
+.animated-glow {
+  animation: flickerGlow 1.5s infinite alternate;
+  box-shadow: 0 0 6px #fff, 0 0 12px #ffb81c, 0 0 20px #ffb81c;
+  transition: transform 0.2s ease;
+}
+.animated-glow:hover {
+  transform: scale(1.05);
+}
+
+@keyframes flickerGlow {
+  0% {
+    box-shadow: 0 0 6px #fff, 0 0 12px #ffb81c, 0 0 20px #ffb81c;
+  }
+  100% {
+    box-shadow: 0 0 10px #fff, 0 0 18px #ffcc33, 0 0 28px #ffb81c;
+  }
+}
+

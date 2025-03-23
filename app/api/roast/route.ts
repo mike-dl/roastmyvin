@@ -47,6 +47,8 @@ async function generateRoast(vin: string): Promise<{ roast: string; roastId: str
   const vehicleModel = data['Vehicle Model'] ?? 'Unknown Model'
   const engineModel = data['Engine Model'] ?? 'Unknown Engine'
   const brakeSystem = data['Brake System'] ?? 'Unknown Brake System'
+  const gvwr = data['GVWR'] ?? 'Unknown GVWR'
+  const cabtype = data['Cab Type'] ?? 'Unknown Cab Type'
 
   const prompt = `
 Given the following truck details, write a short roast for each major category. Format it **exactly like this**, including line breaks:
@@ -54,22 +56,25 @@ Given the following truck details, write a short roast for each major category. 
 🛻 <value> — <1-line roast>
 🚛 <value> — <1-line roast>
 🔧 <value> — <1-line roast>
+⚖️  <value> — <1-line roast>
+🛏️  <value> — <1-line roast>
 🛑 Brake System: <value> — <1-line roast>
 
 Truck Info:
 Make: ${truckManufacturer}
 Model: ${vehicleModel}
 Engine: ${engineModel}
+GVWR: ${gvwr}
+Cab Type: ${cabtype}
 Brake System: ${brakeSystem}
 `.trim()
-
 
   const chatResponse = await openai.chat.completions.create({
     model: 'gpt-4',
     messages: [
       {
         role: 'system',
-        content: 'You are a savage but clever roast comedian. Roast trucks based on their specs. Output must use line breaks and exactly match the emoji-labeled format — one roast per line.',
+        content: 'You are a savage but clever roast comedian and expert diesel mechanic. Roast trucks based on their specs from a repair point of view. Roasts should be PG-rated and not include any sexist or racist material, and a couple sentences for each component. Output must use line breaks and exactly match the emoji-labeled format — one roast per line.',
         },
       {
         role: 'user',

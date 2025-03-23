@@ -16,6 +16,17 @@ export default function HomePage() {
   const [recentRoasts, setRecentRoasts] = useState<Roast[]>([])
   const router = useRouter()
 
+  // 🔐 Password gate
+  const [showGate, setShowGate] = useState(true)
+  const [inputPassword, setInputPassword] = useState('')
+  const correctPassword = 'weekendroast'
+
+  useEffect(() => {
+    if (localStorage.getItem('access_granted') === 'true') {
+      setShowGate(false)
+    }
+  }, [])
+
   useEffect(() => {
     fetch('/api/recent-roasts')
       .then((res) => res.json())
@@ -48,9 +59,41 @@ export default function HomePage() {
     }
   }
 
+  // 🔐 Show password modal if locked
+  if (showGate) {
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50">
+        <div className="bg-white text-black p-8 rounded-lg shadow-lg max-w-sm w-full text-center space-y-4">
+          <h2 className="text-2xl font-bold">Protected Page</h2>
+          <p className="text-sm">This page is locked for the weekend. Enter the password to continue.</p>
+          <input
+            type="password"
+            className="input input-bordered w-full text-white"
+            value={inputPassword}
+            onChange={(e) => setInputPassword(e.target.value)}
+            placeholder="Enter password"
+          />
+          <button
+            className="btn btn-neutral w-full"
+            onClick={() => {
+              if (inputPassword === correctPassword) {
+                localStorage.setItem('access_granted', 'true')
+                setShowGate(false)
+              } else {
+                alert('Incorrect password')
+              }
+            }}
+          >
+            Unlock
+          </button>
+        </div>
+      </div>
+    )
+  }
+
   return (
-    <>
-      <div className="w-full max-w-[850px] mx-auto p-8 bg-black/70 rounded-xl text-white box-border">
+    <div className="flex flex-col min-h-screen">
+      <main className="w-full max-w-[850px] mx-auto p-8 bg-black/70 rounded-xl text-white box-border flex-grow">
         {/* Flickering Logo */}
         <div className="relative w-full max-w-[800px] mx-auto mb-8">
           <img
@@ -65,7 +108,7 @@ export default function HomePage() {
           />
         </div>
 
-        {/* VIN Form */}
+        {/* VIN Input */}
         <form
           onSubmit={handleSubmit}
           className="flex flex-wrap rounded-md overflow-hidden shadow-lg bg-[#222] mb-8"
@@ -83,22 +126,29 @@ export default function HomePage() {
             disabled={loading}
             className="bg-orange-600 text-white font-bold px-6 flex items-center gap-2"
           >
-            🔥 {loading ? 'Roasting...' : 'Roast It!'}
+            🔥 {loading ? 'Roasting...' : 'Roast'}
           </button>
         </form>
+
         {/* Latest Roast */}
         {recentRoasts.length > 0 && (
           <div>
             <h2 className="mb-4 text-lg font-semibold">🔥 Latest Roast</h2>
             <div className="flaming-roast-box">
               <p className="whitespace-pre-line m-0">{recentRoasts[0].roast}</p>
+              <a
+                href={`/roast?roastid=${recentRoasts[0].id}`}
+                className="inline-block text-white mt-2 underline"
+              >
+                View Roast →
+              </a>
             </div>
-            <p className="mb-10 text-sm">This site does not store VINs or collect any personal information.</p>
           </div>
         )}
-      </div>
+      </main>
 
+      {/* Footer */}
       <DieselRepairFooter />
-    </>
+    </div>
   )
 }
