@@ -19,6 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <meta property="og:title" content="Get roasted on Roast My VIN!" />
+      <meta property="og:url" content="https://roastmyvin.com" />
+      <meta property="og:image" content="/share.png" />
       <body
         className={`${intertSans.variable} antialiased`}
       >
