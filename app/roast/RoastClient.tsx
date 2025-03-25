@@ -38,7 +38,7 @@ export default function RoastClient() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <main className="w-full max-w-[850px] mx-auto p-8 bg-black/70 rounded-xl text-white box-border">
+      <main className="w-full max-w-[850px] mx-auto p-8 bg-black/70 text-white box-border">
         {/* Home Link */}
         <div className="mb-4">
           <Link
@@ -83,7 +83,7 @@ export default function RoastClient() {
                     navigator.clipboard.writeText(url)
                     alert('Roast URL copied to clipboard!')
                   }}
-                  className="px-4 py-2 bg-gray-700 text-white rounded font-bold flex items-center"
+                  className="px-4 py-2 bg-gray-700 text-white font-bold flex items-center"
                 >
                   📋 Copy Link
                 </button>
@@ -123,9 +123,8 @@ export default function RoastClient() {
         ) : (
           <p>Roast not found.</p>
         )}
+        
       </main>
-
-      {/* Footer outside the main container */}
       <DieselRepairFooter />
     </div>
   )

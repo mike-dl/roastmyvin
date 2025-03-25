@@ -1,26 +1,15 @@
 export default function DieselRepairFooter() {
     return (
-        <footer
-      style={{
-        width: '100%',
-        maxWidth: '850px',
-        margin: 'auto',
-        padding: '2rem',
-        backgroundColor: '#ffb81ccc',
-        color: 'black',
-      }}
-    >
-        <div className="max-w-xl mx-auto">
-          <h2 className="text-3xl font-bold mb-4">
+        <footer className="footer w-full max-w-[850px] mx-auto p-4 bg-black/70 text-black box-border">
+        <div className="max-w-[700px] mx-auto">
+          <h2 className="text-2xl font-bold mb-2">
             Diesel Repair: Don't let your repair software roast you! 🔥
           </h2>
-          <p className="font-bold mb-4">
+          <p className="font-bold text-md">
           Stop wasting money on outdated tech with incomplete information. Join Diesel Repair today and see for yourself 
           what modern software can do.</p>
-          <p className="font-bold text-lg">
-          Sign up in April and get <span className="font-extrabold">3x FREE credits</span> for your first month!
-          </p>
-          <div className="mt-6">
+          
+          <div className="mt-4 mb-4">
             <a
               href="https://app-repair.diesellaptops.com/?utm_source=website&utm_medium=footer_link&utm_campaign=roastmyvin#/sign-up"
               target="_blank"
@@ -30,7 +19,14 @@ export default function DieselRepairFooter() {
               🔥 Sign Up Free Today →
             </a>
           </div>
-          <p className="text-xs mt-10">&copy; 2025 <a href="https://diesellaptops.com">Diesel Laptops</a>. Information is for entertainment purposes only.
+          <p className="font-bold text-md">
+          Every Diesel Repair account has full access to our VIN Decoder, fault code database, parts-cross reference and more! 
+          Grab your account now!  
+          </p>
+          
+          <p className="text-xs mt-10">
+          PS. Want a VIN decoder on your website? <a className="info p-1" href="https://www.diesellaptops.com/pages/diesel-laptops-apis">Get in touch</a> and let us know! <br /><br />
+          &copy; 2025 <a href="https://diesellaptops.com">Diesel Laptops</a>. Information is for entertainment purposes only.
           This site does not store VINs or collect any personal information.</p>
         </div>
       </footer>

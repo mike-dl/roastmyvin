@@ -26,6 +26,7 @@
   --color-warning-content: oklch(41% 0.112 45.904);
   --color-error: oklch(70% 0.191 22.216);
   --color-error-content: oklch(39% 0.141 25.723);
+  --color-diesel: #ffb81c;
   --color-roast: #a11703;
   --radius-selector: 1rem;
   --radius-field: 0.5rem;
@@ -143,5 +144,15 @@ html, body {
   100% {
     box-shadow: 0 0 10px #fff, 0 0 18px #ffcc33, 0 0 28px #ffb81c;
   }
+}
+
+.info {
+  color:#fff;
+  background-color:#000;
+}
+
+.footer {
+  background-color: #ffb81c;
+  opacity: 90%;
 }
 

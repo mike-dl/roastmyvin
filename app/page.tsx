@@ -12,6 +12,7 @@ interface Roast {
 
 export default function HomePage() {
   const [vin, setVin] = useState('')
+  const [style, setStyle] = useState('Choose')
   const [loading, setLoading] = useState(false)
   const [recentRoasts, setRecentRoasts] = useState<Roast[]>([])
   const router = useRouter()
@@ -42,7 +43,7 @@ export default function HomePage() {
       const res = await fetch('/api/roast', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ vin }),
+        body: JSON.stringify({ vin, style }),
       })
 
       const data = await res.json()
@@ -59,7 +60,7 @@ export default function HomePage() {
     }
   }
 
-  // 🔐 Show password modal if locked
+  // Password
   if (showGate) {
     return (
       <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50">
@@ -107,29 +108,41 @@ export default function HomePage() {
             className="flicker absolute top-0 left-0 w-full h-auto pointer-events-none"
           />
         </div>
-
-        {/* VIN Input */}
+        
         <form
-  onSubmit={handleSubmit}
-  className="flex flex-col sm:flex-row sm:flex-wrap gap-2 rounded-md overflow-hidden shadow-lg bg-[#222] mb-8"
->
-  <input
-    type="text"
-    value={vin}
-    onChange={(e) => setVin(e.target.value)}
-    placeholder="Enter your VIN"
-    required
-    className="w-full sm:flex-1 min-w-[250px] p-3 bg-transparent text-white outline-none text-3xl"
-  />
-  <button
-    type="submit"
-    disabled={loading}
-    className="w-full sm:w-auto bg-[#a11703] text-white font-bold px-6 py-3 text-xl flex items-center justify-center gap-2"
-  >
-    🔥 {loading ? 'Roasting...' : 'Roast Me!'}
-  </button>
-</form>
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-2 rounded-md overflow-hidden shadow-lg bg-[#222] mb-8"
+        >
+          <input
+            type="text"
+            value={vin}
+            onChange={(e) => setVin(e.target.value)}
+            placeholder="Enter your VIN"
+            required
+            className="w-full p-3 bg-transparent text-white outline-none text-3xl"
+          />
 
+          <select
+            value={style}
+            onChange={(e) => setStyle(e.target.value)}
+            required
+            className="w-full bg-[#111] text-white p-3 text-xl"
+            >
+              
+            <option value="Choose">Choose a Style</option>
+            <option value="New Yorker">🗽 New Yorker</option>
+            <option value="Pirate">🏴‍☠️ Pirate</option>
+            <option value="Tyler Robertson">👨‍💼 Tyler Robertson</option>
+          </select>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-[#a11703] text-white font-bold px-6 py-3 text-xl flex items-center justify-center gap-2"
+          >
+            🔥 {loading ? 'Roasting...' : 'Roast Me!'}
+          </button>
+        </form>
 
         {/* Latest Roast */}
         {recentRoasts.length > 0 && (
