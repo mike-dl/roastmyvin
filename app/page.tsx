@@ -94,7 +94,7 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <main className="w-full max-w-[850px] mx-auto p-8 bg-black/70 text-white box-border flex-grow">
+      <main className="w-full max-w-[900px] mx-auto p-8 bg-black/70 text-white box-border flex-grow">
         {/* Flickering Logo */}
         <div className="relative w-full max-w-[800px] mx-auto mb-8">
           <img
@@ -108,41 +108,64 @@ export default function HomePage() {
             className="flicker absolute top-0 left-0 w-full h-auto pointer-events-none"
           />
         </div>
-        
+
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-2 rounded-md overflow-hidden shadow-lg bg-[#222] mb-8"
-        >
+          className="flex flex-col sm:flex-row gap-3 sm:gap-0 rounded-md overflow-hidden mb-8">
+          
           <input
             type="text"
             value={vin}
             onChange={(e) => setVin(e.target.value)}
             placeholder="Enter your VIN"
             required
-            className="w-full p-3 bg-transparent text-white outline-none text-3xl"
+            className="w-full sm:w-1/2 bg-[#222] p-1 text-white outline-none text-2xl"
           />
 
           <select
             value={style}
             onChange={(e) => setStyle(e.target.value)}
             required
-            className="w-full bg-[#111] text-white p-3 text-xl"
-            >
-              
-            <option value="Choose">Choose a Style</option>
+            className="w-full sm:w-2/6 bg-[#222] text-white p-1 px-1 sm:mx-3 text-xl">    
+            <option value="Choose">Style</option>
             <option value="New Yorker">🗽 New Yorker</option>
             <option value="Pirate">🏴‍☠️ Pirate</option>
-            <option value="Tyler Robertson">👨‍💼 Tyler Robertson</option>
+            <option value="Tyler Robertson">👨‍💼 CEO Tyler Robertson</option>
           </select>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#a11703] text-white font-bold px-6 py-3 text-xl flex items-center justify-center gap-2"
+            className="w-full sm:w-1/6 bg-[#a11703] p-3 text-white font-bold text-xl flex items-center justify-center"
           >
-            🔥 {loading ? 'Roasting...' : 'Roast Me!'}
+            🔥 {loading ? '...' : 'Roast!'}
           </button>
         </form>
+
+        <div className="flex flex-wrap gap-3 mb-8">
+          <h2>Need a VIN? Use one of ours!</h2>
+          <button
+            type="button"
+            onClick={() => setVin('1XP4DP9XXED223076')}
+            className="bg-[#444] text-white px-4 py-2 rounded hover:bg-[#666]">
+          Copy VIN: Peterbilt
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setVin('1FUJGEDV3CSBD6707')}
+            className="bg-[#444] text-white px-4 py-2 rounded hover:bg-[#666]">
+          Copy VIN: Freightliner
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setVin('1HSDJSJR8CH672960')}
+            className="bg-[#444] text-white px-4 py-2 rounded hover:bg-[#666]">
+          Copy VIN: International
+          </button>
+        </div>
+
 
         {/* Latest Roast */}
         {recentRoasts.length > 0 && (

@@ -88,7 +88,7 @@ Brake System: ${brakeSystem}
     messages: [
       {
         role: 'system',
-        content: `${persona} Keep it safe for kids. Output must use line breaks and exactly match the emoji-labeled format.`,
+        content: `${persona} Roast this truck, say nothing nice. Keep it safe for work. Output must use line breaks and exactly match the emoji-labeled format.`,
       },
       {
         role: 'user',

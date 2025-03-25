@@ -1,6 +1,6 @@
 export default function DieselRepairFooter() {
     return (
-        <footer className="footer w-full max-w-[850px] mx-auto p-4 bg-black/70 text-black box-border">
+        <footer className="footer w-full max-w-[900px] mx-auto p-4 bg-black/70 text-black box-border">
         <div className="max-w-[700px] mx-auto">
           <h2 className="text-2xl font-bold mb-2">
             Diesel Repair: Don't let your repair software roast you! 🔥

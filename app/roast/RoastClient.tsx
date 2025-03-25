@@ -38,7 +38,7 @@ export default function RoastClient() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <main className="w-full max-w-[850px] mx-auto p-8 bg-black/70 text-white box-border">
+      <main className="w-full max-w-[900px] mx-auto p-8 bg-black/70 text-white box-border">
         {/* Home Link */}
         <div className="mb-4">
           <Link
