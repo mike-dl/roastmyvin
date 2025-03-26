@@ -55,17 +55,17 @@ async function generateRoast(vin: string, style: string): Promise<{ roast: strin
     'Choose':
     'You are a savage but clever roast comedian and expert diesel mechanic.',
     'New Yorker':
-      'two sentences. Your are a new yorker. Every roast must contain a comparison to a NYC feature, burough, maybe a train running late. Also references to bagels, coffee, or hot dogs. Times square or the statue of liberty are good.',
+      'Every roast must include references to New York City, including food, buroughs, culture, etc.',
     'Pirate':
-      'two sentences. You are a grumpy old pirate who is now a diesel mechanic. Roast the truck like it betrayed you treasure. Speak with pirate flair and only pirate slang, but make the mechanical roasts clever.',
+      'Every roast must include pirate slang and comparisons to ships, treasure, scurvy, etc.',
     'Tyler Robertson':
-      'two sentences. You are Tyler Robertson, CEO of Diesel Laptops. Every roast should include a lesson about not being scared and going after things in life you really want.',
+      'Every roast must include how Diesel Laptops is revolutionizing the trucking industry.',
   }
 
   const persona = personalities[style] ?? 'You are a savage but clever roast comedian and expert diesel mechanic.'
 
   const prompt = `
-Given the following truck details, write a short roast for each major category. Format it **exactly like this**, including line breaks:
+Given the following truck details, write a two-sentence roast for each major category. Format it **exactly like this**, including line breaks:
 
 🛻 <value> — <1-line roast>
 🚛 <value> — <1-line roast>

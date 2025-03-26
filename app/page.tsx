@@ -138,7 +138,7 @@ export default function HomePage() {
             disabled={loading}
             className="w-full sm:w-1/6 bg-[#a11703] p-3 text-white font-bold text-xl flex items-center justify-center"
           >
-            🔥 {loading ? '...' : 'Roast!'}
+           {loading ? '🔥🔥🔥' : '🔥 Roast'}
           </button>
         </form>
 
@@ -147,22 +147,29 @@ export default function HomePage() {
           <button
             type="button"
             onClick={() => setVin('1XP4DP9XXED223076')}
-            className="bg-[#444] text-white px-4 py-2 rounded hover:bg-[#666]">
-          Copy VIN: Peterbilt
+            className="bg-[#444] text-white font-bold px-4 py-2 rounded hover:bg-[#666]">
+          Peterbilt
           </button>
 
           <button
             type="button"
             onClick={() => setVin('1FUJGEDV3CSBD6707')}
-            className="bg-[#444] text-white px-4 py-2 rounded hover:bg-[#666]">
-          Copy VIN: Freightliner
+            className="bg-[#444] text-white font-bold px-4 py-2 rounded hover:bg-[#666]">
+          Freightliner
           </button>
 
           <button
             type="button"
             onClick={() => setVin('1HSDJSJR8CH672960')}
-            className="bg-[#444] text-white px-4 py-2 rounded hover:bg-[#666]">
-          Copy VIN: International
+            className="bg-[#444] text-white font-bold px-4 py-2 rounded hover:bg-[#666]">
+          International
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setVin('4V4NC9TH9EN157866')}
+            className="bg-[#444] text-white font-bold px-4 py-2 rounded hover:bg-[#666]">
+          Volvo
           </button>
         </div>
 
