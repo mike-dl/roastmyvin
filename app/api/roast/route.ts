@@ -46,49 +46,41 @@ async function generateRoast(vin: string, style: string): Promise<{ roast: strin
   const truckManufacturer = data['Truck Manufacturer'] ?? 'Unknown Make'
   const vehicleModel = data['Vehicle Model'] ?? 'Unknown Model'
   const engineModel = data['Engine Model'] ?? 'Unknown Engine'
-  const brakeSystem = data['Brake System'] ?? 'Unknown Brake System'
   const gvwr = data['GVWR'] ?? 'Unknown GVWR'
   const cabtype = data['Cab Type'] ?? 'Unknown Cab Type'
+  const brakeSystem = data['Brake System'] ?? 'Unknown Brake System'
 
   // Style-based personality
   const personalities: Record<string, string> = {
     'Choose':
     'You are a savage but clever roast comedian and expert diesel mechanic.',
     'New Yorker':
-      'Every roast must include references to New York City, including food, buroughs, culture, etc.',
+      'Every roast must include references to New York City, including food, buroughs, culture, etc. Make sure to spell words in the way that a new yorder would say them.',
     'Pirate':
-      'Every roast must include pirate slang and comparisons to ships, treasure, scurvy, etc.',
+      'Every roast must include pirate slang and comparisons to ships, treasure, scurvy, etc.Make sure to spell words in the way a pirate would say them',
     'Tyler Robertson':
-      'Every roast must include how Diesel Laptops is revolutionizing the trucking industry.',
+      'Make a hilarious joke about each component',
   }
 
   const persona = personalities[style] ?? 'You are a savage but clever roast comedian and expert diesel mechanic.'
 
   const prompt = `
-Given the following truck details, write a two-sentence roast for each major category. Format it **exactly like this**, including line breaks:
+Format your reply like this, in plain text:
 
-🛻 <value> — <1-line roast>
-🚛 <value> — <1-line roast>
-🔧 <value> — <1-line roast>
-⚖️  <value> — <1-line roast>
-🛏️  <value> — <1-line roast>
-🛑 Brake System: <value> — <1-line roast>
-
-Truck Info:
-Make: ${truckManufacturer}
-Model: ${vehicleModel}
-Engine: ${engineModel}
-GVWR: ${gvwr}
-Cab Type: ${cabtype}
-Brake System: ${brakeSystem}
-`.trim()
+🛻 Make: ${truckManufacturer} — <2-line roast>
+🚛 Model: ${vehicleModel} — <2-line roast>
+🔧 Engine: ${engineModel} — <2-line roast>
+⚖️ GVWR: ${gvwr} — <2-line roast>
+🛏️ Cab Type: ${cabtype} — <2-line roast>
+🛑 Brake System: ${brakeSystem} — <2-line roast>
+`
 
   const chatResponse = await openai.chat.completions.create({
-    model: `gpt-3.5-turbo`,
+    model: 'chatgpt-4o-latest',
     messages: [
       {
         role: 'system',
-        content: `${persona} Roast this truck, say nothing nice. Keep it safe for work. Output must use line breaks and exactly match the emoji-labeled format.`,
+        content: `${persona} Brutally roast this truck, say nothing nice. Keep it safe for work. Output must use line breaks and exactly match the emoji-labeled format.`,
       },
       {
         role: 'user',
@@ -96,7 +88,7 @@ Brake System: ${brakeSystem}
       },
     ],
     temperature: 0.9,
-    max_tokens: 200,
+    max_tokens: 400,
   })
 
   const aiRoast = chatResponse.choices[0].message.content?.trim() ?? 'This truck roasted itself.'
