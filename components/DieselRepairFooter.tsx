@@ -11,7 +11,7 @@ export default function DieselRepairFooter() {
           
           <div className="mt-4 mb-4">
             <a
-              href="https://app-repair.diesellaptops.com/?utm_source=website&utm_medium=footer_link&utm_campaign=roastmyvin#/sign-up"
+              href="https://app-repair.diesellaptops.com#/sign-up?utm_source=website&utm_medium=footer_link&utm_campaign=roastmyvin"
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-lg btn-neutral animated-glow"
@@ -25,7 +25,7 @@ export default function DieselRepairFooter() {
           </p>
           
           <p className="text-xs mt-10">
-          PS. Want a VIN decoder on your website? <a className="info p-1" href="https://www.diesellaptops.com/pages/diesel-laptops-apis">Get in touch</a> and let us know! <br /><br />
+          PS. Want our VIN decoder to power your website? <a className="info p-1" href="https://www.diesellaptops.com/pages/diesel-laptops-apis">Get in touch</a> and let us know! <br /><br />
           &copy; 2025 <a href="https://diesellaptops.com">Diesel Laptops</a>. Information is for entertainment purposes only.
           This site does not store VINs or collect any personal information.</p>
         </div>

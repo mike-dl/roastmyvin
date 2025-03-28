@@ -7,10 +7,21 @@ import DieselRepairFooter from '@/components/DieselRepairFooter'
 
 export default function RoastClient() {
   const searchParams = useSearchParams()
-  const roastId = searchParams.get('roastid')
+  const [roastId, setRoastId] = useState<string | null>(null)
   const [roast, setRoast] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
+  const [currentUrl, setCurrentUrl] = useState<string>('')
 
+  // Get roast ID and current URL in a client-safe way
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const id = searchParams.get('roastid')
+      setRoastId(id)
+      setCurrentUrl(window.location.href)
+    }
+  }, [searchParams])
+
+  // Fetch roast data once we have the roastId
   useEffect(() => {
     if (roastId) {
       fetch(`/api/roast/${roastId}`)
@@ -23,23 +34,9 @@ export default function RoastClient() {
     }
   }, [roastId])
 
-  const socialBtnStyle = (bg: string) => ({
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '0.5rem',
-    padding: '0.5rem 1rem',
-    backgroundColor: bg,
-    color: 'white',
-    borderRadius: '4px',
-    fontWeight: 'bold',
-    textDecoration: 'none',
-    fontSize: '0.95rem',
-  })
-
   return (
     <div className="flex flex-col min-h-screen">
       <main className="w-full max-w-[900px] mx-auto p-8 bg-black/70 text-white box-border">
-        {/* Home Link */}
         <div className="mb-4">
           <Link
             href="/"
@@ -49,7 +46,6 @@ export default function RoastClient() {
           </Link>
         </div>
 
-        {/* Flickering Roast Logo */}
         <div className="relative w-full max-w-[800px] mx-auto mb-8">
           <img
             src="/roast-off.png"
@@ -63,33 +59,23 @@ export default function RoastClient() {
           />
         </div>
 
-        {/* Roast Display */}
-        {loading ? (
-          <p>Loading roast...</p>
-        ) : roast ? (
-          <>
-            <div className="flaming-roast-box">
-              <p className="whitespace-pre-line m-0">{roast}</p>
-            </div>
+        <div className="mt-4 mb-10 text-center">
+          <h2 className="mb-4 font-bold text-3xl">🔥🔥 Share this roast 🔥🔥</h2>
 
-            {/* Share CTA */}
-            <div className="mt-8 text-center">
-              <p className="mb-4 font-bold">Share this roast 👇</p>
-
-              <div className="flex gap-4 justify-center flex-wrap">
-                <button
-                  onClick={() => {
-                    const url = window.location.href
-                    navigator.clipboard.writeText(url)
-                    alert('Roast URL copied to clipboard!')
-                  }}
-                  className="px-4 py-2 bg-gray-700 text-white font-bold flex items-center"
-                >
-                  📋 Copy Link
-                </button>
-
+          <div className="flex gap-4 justify-center flex-wrap">
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(currentUrl)
+                alert('Roast URL copied to clipboard!')
+              }}
+              className="px-4 py-2 bg-[#ffb81c] text-black font-bold flex items-center"
+            >
+              📋 Copy Link
+            </button>
+            {currentUrl && (
+              <>
                 <a
-                  href={`https://twitter.com/intent/tweet?text=Check out this brutal truck roast&url=${encodeURIComponent(window.location.href)}`}
+                  href={`https://twitter.com/intent/tweet?text=Check out this brutal truck roast&url=${encodeURIComponent(currentUrl)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-4 py-2 bg-black text-white rounded font-bold text-sm"
@@ -97,9 +83,8 @@ export default function RoastClient() {
                   <img src="/icons/x.svg" alt="X Logo" className="h-5 invert" />
                   Share on X
                 </a>
-
                 <a
-                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
+                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-4 py-2 bg-[#1877F2] text-white rounded font-bold text-sm"
@@ -107,23 +92,30 @@ export default function RoastClient() {
                   <img src="/icons/fb.svg" alt="Facebook Logo" className="h-5 invert" />
                   Share on Facebook
                 </a>
-
                 <a
-                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`}
+                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-[#0077b5] text-white rounded font-bold text-sm">
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-[#0077b5] text-white rounded font-bold text-sm"
+                >
                   <img src="/icons/linkedin.svg" alt="LinkedIn Logo" className="h-5" />
                   Share on LinkedIn
                 </a>
+              </>
+            )}
+          </div>
+        </div>
 
-              </div>
-            </div>
-          </>
+        {/* Roast Display */}
+        {loading ? (
+          <p>Loading roast...</p>
+        ) : roast ? (
+          <div className="flaming-roast-box">
+            <p className="whitespace-pre-line m-0">{roast}</p>
+          </div>
         ) : (
           <p>Roast not found.</p>
         )}
-        
       </main>
       <DieselRepairFooter />
     </div>

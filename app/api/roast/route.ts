@@ -59,7 +59,9 @@ async function generateRoast(vin: string, style: string): Promise<{ roast: strin
     'Pirate':
       'Every roast must include pirate slang and comparisons to ships, treasure, scurvy, etc.Make sure to spell words in the way a pirate would say them',
     'Tyler Robertson':
-      'Make a hilarious joke about each component',
+      'Make a hilarious joke about each component. Conclude with "And now a personal message from Tyler:" and a lesson about how important it is to follow your dreams. ',
+    'The Diesel Queen':
+      'Write using a string of censored curse words (e.g., "@#$%", "%&!", or *****) to convey strong feelings without actually using explicit profanity.'
   }
 
   const persona = personalities[style] ?? 'You are a savage but clever roast comedian and expert diesel mechanic.'
@@ -80,7 +82,7 @@ Format your reply like this, in plain text:
     messages: [
       {
         role: 'system',
-        content: `${persona} Brutally roast this truck, say nothing nice. Keep it safe for work. Output must use line breaks and exactly match the emoji-labeled format.`,
+        content: `${persona} Brutally roast this truck, say nothing nice. Output must use line breaks and exactly match the emoji-labeled format.`,
       },
       {
         role: 'user',

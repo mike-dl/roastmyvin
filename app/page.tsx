@@ -17,17 +17,6 @@ export default function HomePage() {
   const [recentRoasts, setRecentRoasts] = useState<Roast[]>([])
   const router = useRouter()
 
-  // 🔐 Password gate
-  const [showGate, setShowGate] = useState(true)
-  const [inputPassword, setInputPassword] = useState('')
-  const correctPassword = 'dlbbq'
-
-  useEffect(() => {
-    if (localStorage.getItem('access_granted') === 'true') {
-      setShowGate(false)
-    }
-  }, [])
-
   useEffect(() => {
     fetch('/api/recent-roasts')
       .then((res) => res.json())
@@ -58,38 +47,6 @@ export default function HomePage() {
     } finally {
       setLoading(false)
     }
-  }
-
-  // Password
-  if (showGate) {
-    return (
-      <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50">
-        <div className="bg-white text-black p-8 rounded-lg shadow-lg max-w-sm w-full text-center space-y-4">
-          <h2 className="text-2xl font-bold">Protected Page</h2>
-          <p className="text-sm">This page is locked. Enter the password to continue.</p>
-          <input
-            type="password"
-            className="input input-bordered w-full text-white"
-            value={inputPassword}
-            onChange={(e) => setInputPassword(e.target.value)}
-            placeholder="Enter password"
-          />
-          <button
-            className="btn btn-neutral w-full"
-            onClick={() => {
-              if (inputPassword === correctPassword) {
-                localStorage.setItem('access_granted', 'true')
-                setShowGate(false)
-              } else {
-                alert('Incorrect password')
-              }
-            }}
-          >
-            Unlock
-          </button>
-        </div>
-      </div>
-    )
   }
 
   return (
@@ -131,6 +88,7 @@ export default function HomePage() {
             <option value="New Yorker">🗽 New Yorker</option>
             <option value="Pirate">🏴‍☠️ Pirate</option>
             <option value="Tyler Robertson">👨‍💼 CEO Tyler Robertson</option>
+            <option value="The Diesel Queen">🌶️ The Diesel Queen</option>
           </select>
 
           <button
