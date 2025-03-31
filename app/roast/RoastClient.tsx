@@ -70,39 +70,8 @@ export default function RoastClient() {
               }}
               className="px-4 py-2 bg-[#ffb81c] text-black font-bold flex items-center"
             >
-              📋 Copy Link
+              📋 Copy link to share!
             </button>
-            {currentUrl && (
-              <>
-                <a
-                  href={`https://twitter.com/intent/tweet?text=Check out this brutal truck roast&url=${encodeURIComponent(currentUrl)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-black text-white rounded font-bold text-sm"
-                >
-                  <img src="/icons/x.svg" alt="X Logo" className="h-5 invert" />
-                  Share on X
-                </a>
-                <a
-                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-[#1877F2] text-white rounded font-bold text-sm"
-                >
-                  <img src="/icons/fb.svg" alt="Facebook Logo" className="h-5 invert" />
-                  Share on Facebook
-                </a>
-                <a
-                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-[#0077b5] text-white rounded font-bold text-sm"
-                >
-                  <img src="/icons/linkedin.svg" alt="LinkedIn Logo" className="h-5" />
-                  Share on LinkedIn
-                </a>
-              </>
-            )}
           </div>
         </div>
 
