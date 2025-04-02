@@ -18,7 +18,10 @@ export async function POST(request: NextRequest) {
     console.error(error)
     return new NextResponse(
       JSON.stringify({ error: 'Unable to roast VIN', details: String(error) }),
-      { status: 400 }
+      {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      }
     )
   }
 }
