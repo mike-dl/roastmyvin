@@ -75,9 +75,9 @@ Format your reply like this, in plain text:
 🛻 Make: ${truckManufacturer} — <2-line roast>
 🚛 Model: ${vehicleModel} — <2-line roast>
 🔧 Engine: ${engineModel} — <2-line roast>
-⚖️ GVWR: ${gvwr} — <2-line roast>
-🛏️ Cab Type: ${cabtype} — <2-line roast>
-🛑 Brake System: ${brakeSystem} — <2-line roast>
+⚖️ GVWR: ${gvwr} — <1-line roast>
+🛏️ Cab Type: ${cabtype} — <1-line roast>
+🛑 Brake System: ${brakeSystem} — <1-line roast>
 `
 
   const chatResponse = await openai.chat.completions.create({
