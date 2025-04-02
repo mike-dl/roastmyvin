@@ -93,7 +93,7 @@ Format your reply like this, in plain text:
       },
     ],
     temperature: 0.9,
-    max_tokens: 400,
+    max_tokens: 350,
   })
 
   const aiRoast = chatResponse.choices[0].message.content?.trim() ?? 'This truck roasted itself.'
