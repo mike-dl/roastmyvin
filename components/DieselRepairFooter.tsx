@@ -23,7 +23,7 @@ export default function DieselRepairFooter() {
 
         <p className="font-bold text-md">
           Every Diesel Repair account has full access to our VIN Decoder, fault code database, parts-cross reference and more!
-          Grab your account now!
+          Grab your account now, and while you're here, grab our new mobile app on your app store of choice. Both are completely free!
         </p>
 
         {/* App Store Links */}
